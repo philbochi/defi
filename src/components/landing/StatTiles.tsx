@@ -1,6 +1,6 @@
 const ACCENT = {
   cyan: "text-neon-cyan border-neon-cyan/25",
-  pink: "text-neon-pink border-neon-pink/25",
+  violet: "text-neon-violet border-neon-violet/25",
   emerald: "text-neon-emerald border-neon-emerald/25",
 } as const;
 

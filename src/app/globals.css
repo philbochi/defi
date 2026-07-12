@@ -15,7 +15,7 @@
   --negative: #e66767;
   /* Landing-page ecosystem accents: mainnet / testnet / custom token */
   --neon-cyan: #06b6d4;
-  --neon-pink: #ec4899;
+  --neon-violet: #8b5cf6;
   --neon-emerald: #10b981;
 }
 
@@ -31,7 +31,7 @@
   --color-positive: var(--positive);
   --color-negative: var(--negative);
   --color-neon-cyan: var(--neon-cyan);
-  --color-neon-pink: var(--neon-pink);
+  --color-neon-violet: var(--neon-violet);
   --color-neon-emerald: var(--neon-emerald);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);

@@ -25,10 +25,10 @@ const SECTION_STYLE = {
     chip: "border-neon-cyan/40 text-neon-cyan",
     glow: "shadow-[0_0_40px_rgba(6,182,212,0.08)]",
   },
-  pink: {
-    border: "border-neon-pink/25",
-    chip: "border-neon-pink/40 text-neon-pink",
-    glow: "shadow-[0_0_40px_rgba(236,72,153,0.08)]",
+  violet: {
+    border: "border-neon-violet/25",
+    chip: "border-neon-violet/40 text-neon-violet",
+    glow: "shadow-[0_0_40px_rgba(139,92,246,0.08)]",
   },
   emerald: {
     border: "border-neon-emerald/25",
@@ -44,7 +44,7 @@ const STACK_BADGES = [
   { label: "wagmi", color: "text-ink" },
   { label: "Solidity 0.8", color: "text-[#7c82ff]" },
   { label: "Foundry", color: "text-[#f6851b]" },
-  { label: "Uniswap v3", color: "text-neon-pink" },
+  { label: "Uniswap v3", color: "text-neon-violet" },
   { label: "Tailwind 4", color: "text-neon-cyan" },
 ] as const;
 
@@ -144,7 +144,7 @@ export default async function Home() {
               </span>
               <h1 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
                 Three projects.{" "}
-                <span className="bg-linear-to-r from-neon-cyan via-neon-pink to-neon-emerald bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-neon-cyan via-neon-violet to-neon-emerald bg-clip-text text-transparent">
                   One on-chain pipeline.
                 </span>
               </h1>
@@ -158,15 +158,31 @@ export default async function Home() {
 
             <Pipeline />
 
-            <div className="flex flex-wrap items-center justify-center gap-2">
-              {STACK_BADGES.map((b) => (
-                <span
-                  key={b.label}
-                  className={`rounded-full border border-edge bg-surface px-3 py-1 font-mono text-[11px] ${b.color}`}
+            <div className="flex flex-col items-center gap-6">
+              <div className="flex flex-wrap items-center justify-center gap-3">
+                <Link
+                  href="/dashboard"
+                  className="rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
                 >
-                  {b.label}
-                </span>
-              ))}
+                  Try the dashboard
+                </Link>
+                <Link
+                  href="/case-studies"
+                  className="rounded-xl border border-edge px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-accent/50"
+                >
+                  Read the deep-dives
+                </Link>
+              </div>
+              <div className="flex flex-wrap items-center justify-center gap-2">
+                {STACK_BADGES.map((b) => (
+                  <span
+                    key={b.label}
+                    className={`rounded-full border border-edge bg-surface px-3 py-1 font-mono text-[11px] ${b.color}`}
+                  >
+                    {b.label}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </section>

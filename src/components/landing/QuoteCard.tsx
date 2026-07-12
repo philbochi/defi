@@ -42,7 +42,7 @@ export default function QuoteCard() {
         </span>
         <span className="relative flex h-1.5 w-1.5">
           <span
-            className={`h-1.5 w-1.5 rounded-full ${flash ? "bg-neon-pink" : "bg-ink-3/60"} transition-colors`}
+            className={`h-1.5 w-1.5 rounded-full ${flash ? "bg-neon-violet" : "bg-ink-3/60"} transition-colors`}
           />
         </span>
       </div>
@@ -50,11 +50,11 @@ export default function QuoteCard() {
         <span className="tnum font-mono text-lg font-semibold text-ink">
           0.001 WETH
         </span>
-        <span className="text-neon-pink" aria-hidden>
+        <span className="text-neon-violet" aria-hidden>
           →
         </span>
         <span
-          className={`tnum font-mono text-lg font-semibold transition-colors duration-300 ${flash ? "text-neon-pink" : "text-ink"}`}
+          className={`tnum font-mono text-lg font-semibold transition-colors duration-300 ${flash ? "text-neon-violet" : "text-ink"}`}
         >
           {out.toFixed(9)} UNI
         </span>

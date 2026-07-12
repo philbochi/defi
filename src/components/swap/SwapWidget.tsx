@@ -26,6 +26,7 @@ import {
   weth9Abi,
   ROUTER_ADDRESS_THIS,
 } from "@/lib/swap/abis";
+import { Medallion } from "@/components/landing/glyphs";
 
 const DECIMALS = 18;
 const SLIPPAGE_PRESETS_BPS = [10, 50, 100] as const;
@@ -414,7 +415,10 @@ export default function SwapWidget() {
   return (
     <div className="mx-auto flex w-full max-w-md flex-col gap-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-semibold tracking-tight">Swap</h1>
+        <div className="flex items-center gap-3">
+          <Medallion glyph="p2" color="violet" />
+          <h1 className="text-xl font-semibold tracking-tight">Swap</h1>
+        </div>
         <ConnectButton
           accountStatus="address"
           chainStatus="icon"

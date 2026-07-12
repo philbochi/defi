@@ -1,6 +1,6 @@
 const ACCENT = {
   cyan: { pill: "border-neon-cyan/40 text-neon-cyan", arrow: "text-neon-cyan/60" },
-  pink: { pill: "border-neon-pink/40 text-neon-pink", arrow: "text-neon-pink/60" },
+  violet: { pill: "border-neon-violet/40 text-neon-violet", arrow: "text-neon-violet/60" },
   emerald: {
     pill: "border-neon-emerald/40 text-neon-emerald",
     arrow: "text-neon-emerald/60",

@@ -1,4 +1,5 @@
 import { PROJECTS, SNIPPETS } from "@/lib/landing/content";
+import { GLYPHS } from "./glyphs";
 
 const NODE_STYLE = {
   cyan: {
@@ -7,11 +8,11 @@ const NODE_STYLE = {
     text: "text-neon-cyan",
     dot: "bg-neon-cyan",
   },
-  pink: {
-    ring: "border-neon-pink/60",
-    glow: "shadow-[0_0_28px_rgba(236,72,153,0.35)]",
-    text: "text-neon-pink",
-    dot: "bg-neon-pink",
+  violet: {
+    ring: "border-neon-violet/60",
+    glow: "shadow-[0_0_28px_rgba(139,92,246,0.35)]",
+    text: "text-neon-violet",
+    dot: "bg-neon-violet",
   },
   emerald: {
     ring: "border-neon-emerald/60",
@@ -27,30 +28,6 @@ const TOOLTIP_CODE: Record<string, string> = {
   p3: "token.mint(msg.sender, amount); // never from principal",
 };
 
-const GLYPHS: Record<string, React.ReactNode> = {
-  p1: (
-    // bar chart
-    <g strokeLinecap="round">
-      <path d="M9 17V11" />
-      <path d="M14 17V7" />
-      <path d="M19 17v-3" />
-    </g>
-  ),
-  p2: (
-    // swap arrows
-    <g strokeLinecap="round" strokeLinejoin="round">
-      <path d="M8 8h9l-2.5-2.5" />
-      <path d="M20 16h-9l2.5 2.5" />
-    </g>
-  ),
-  p3: (
-    // vault / coin
-    <g strokeLinecap="round">
-      <circle cx="14" cy="12" r="5.5" />
-      <path d="M14 9.5v5M12 11h4" />
-    </g>
-  ),
-};
 
 /**
  * The living pipeline: three ecosystem nodes joined by a glowing data
@@ -72,11 +49,11 @@ export default function Pipeline() {
         <defs>
           <linearGradient id="pipe" x1="0" y1="0" x2="900" y2="0" gradientUnits="userSpaceOnUse">
             <stop offset="0%" stopColor="#06b6d4" />
-            <stop offset="50%" stopColor="#ec4899" />
+            <stop offset="50%" stopColor="#8b5cf6" />
             <stop offset="100%" stopColor="#10b981" />
           </linearGradient>
           <filter id="pipeGlow" x="-20%" y="-300%" width="140%" height="700%">
-            <feDropShadow dx="0" dy="0" stdDeviation="4" floodColor="#ec4899" floodOpacity="0.45" />
+            <feDropShadow dx="0" dy="0" stdDeviation="4" floodColor="#8b5cf6" floodOpacity="0.45" />
           </filter>
         </defs>
 
@@ -92,7 +69,7 @@ export default function Pipeline() {
 
         {/* one pulse per ecosystem — a gradient fill can't follow
             animateMotion's transform, so each particle owns a color */}
-        {["#06b6d4", "#ec4899", "#10b981"].map((fill, i) => (
+        {["#06b6d4", "#8b5cf6", "#10b981"].map((fill, i) => (
           <circle key={fill} r="3.5" fill={fill} opacity="0">
             <animateMotion
               dur="4.5s"

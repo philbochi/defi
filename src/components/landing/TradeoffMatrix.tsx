@@ -6,7 +6,7 @@ import type { Tradeoff } from "@/lib/landing/content";
 export type MatrixTab = {
   id: string;
   label: string;
-  color: "cyan" | "pink" | "emerald";
+  color: "cyan" | "violet" | "emerald";
   chosen: Tradeoff[];
   rejected: Tradeoff[];
   /** Pre-highlighted shiki HTML (build-time, trusted repo content). */
@@ -16,13 +16,13 @@ export type MatrixTab = {
 
 const ACCENT = {
   cyan: "text-neon-cyan",
-  pink: "text-neon-pink",
+  violet: "text-neon-violet",
   emerald: "text-neon-emerald",
 } as const;
 
 const TAB_ACTIVE = {
   cyan: "border-neon-cyan/60 text-neon-cyan",
-  pink: "border-neon-pink/60 text-neon-pink",
+  violet: "border-neon-violet/60 text-neon-violet",
   emerald: "border-neon-emerald/60 text-neon-emerald",
 } as const;
 

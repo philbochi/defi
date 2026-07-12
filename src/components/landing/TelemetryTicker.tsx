@@ -8,13 +8,13 @@ const MAX_LINES = 6;
 
 const TAG_COLOR: Record<string, string> = {
   EVENT: "text-neon-emerald",
-  QUOTE: "text-neon-pink",
-  SWAP: "text-neon-pink",
+  QUOTE: "text-neon-violet",
+  SWAP: "text-neon-violet",
   CACHE: "text-neon-cyan",
   RPC: "text-neon-cyan",
   PRICE: "text-neon-cyan",
   VAULT: "text-neon-emerald",
-  GUARD: "text-neon-pink",
+  GUARD: "text-neon-violet",
   LIMIT: "text-neon-cyan",
 };
 

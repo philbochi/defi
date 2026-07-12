@@ -11,7 +11,7 @@ export type ProjectMeta = {
   index: string;
   title: string;
   chain: string;
-  color: "cyan" | "pink" | "emerald";
+  color: "cyan" | "violet" | "emerald";
   tagline: string;
   /** Two-line engineering decision for the pipeline tooltip. */
   decision: string;
@@ -37,7 +37,7 @@ export const PROJECTS: ProjectMeta[] = [
     index: "02",
     title: "Token Swap",
     chain: "Sepolia testnet",
-    color: "pink",
+    color: "violet",
     tagline: "Wallet-connect swaps through Uniswap v3's deployed contracts.",
     decision:
       "Integrate the battle-tested AMM instead of writing a toy one — the job skill is correct integration, not novel mechanism design.",
@@ -118,7 +118,7 @@ export type Tradeoff = { title: string; why: string };
 export const MATRIX: {
   id: string;
   label: string;
-  color: "cyan" | "pink" | "emerald";
+  color: "cyan" | "violet" | "emerald";
   chosen: Tradeoff[];
   rejected: Tradeoff[];
   chosenSnippet: keyof typeof SNIPPETS;
@@ -162,7 +162,7 @@ export const MATRIX: {
   {
     id: "p2",
     label: "02 · swap",
-    color: "pink",
+    color: "violet",
     chosen: [
       {
         title: "Uniswap v3's deployed contracts",

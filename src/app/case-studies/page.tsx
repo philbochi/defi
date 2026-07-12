@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import AmbientBackdrop from "@/components/AmbientBackdrop";
@@ -111,7 +112,7 @@ export default async function CaseStudiesPage() {
       <AmbientBackdrop color="slate" />
       <SiteHeader active="deep-dives" />
       <main className="relative mx-auto w-full max-w-3xl flex-1 px-4 py-10 sm:px-6">
-        <header className="mb-10 flex flex-col gap-3">
+        <header className="mb-10 flex flex-col gap-4">
           <h1 className="text-3xl font-semibold tracking-tight">
             Project Deep-Dives
           </h1>
@@ -122,11 +123,31 @@ export default async function CaseStudiesPage() {
             was deliberately not chosen, and why. Everything is live and the
             code is public.
           </p>
+          <nav aria-label="On this page" className="flex flex-wrap gap-2">
+            <a
+              href="#p1"
+              className="rounded-full border border-neon-cyan/40 px-3 py-1 font-mono text-[11px] text-neon-cyan transition-colors hover:bg-neon-cyan/10"
+            >
+              01 · dashboard
+            </a>
+            <a
+              href="#p2"
+              className="rounded-full border border-neon-violet/40 px-3 py-1 font-mono text-[11px] text-neon-violet transition-colors hover:bg-neon-violet/10"
+            >
+              02 · swap
+            </a>
+            <a
+              href="#p3"
+              className="rounded-full border border-neon-emerald/40 px-3 py-1 font-mono text-[11px] text-neon-emerald transition-colors hover:bg-neon-emerald/10"
+            >
+              03 · staking vault
+            </a>
+          </nav>
         </header>
 
         <div className="flex flex-col gap-14">
           {/* ---- Project 1 ---- */}
-          <section className="flex flex-col gap-5">
+          <section id="p1" className="flex scroll-mt-24 flex-col gap-5">
             <Reveal className="flex flex-col gap-2">
               <span className="w-fit rounded-full border border-neon-cyan/40 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-neon-cyan">
                 01 · Ethereum mainnet
@@ -213,9 +234,9 @@ export default async function CaseStudiesPage() {
           </section>
 
           {/* ---- Project 2 ---- */}
-          <section className="flex flex-col gap-5">
+          <section id="p2" className="flex scroll-mt-24 flex-col gap-5">
             <Reveal className="flex flex-col gap-2">
-              <span className="w-fit rounded-full border border-neon-pink/40 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-neon-pink">
+              <span className="w-fit rounded-full border border-neon-violet/40 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-neon-violet">
                 02 · Sepolia testnet
               </span>
               <h2 className="text-xl font-semibold tracking-tight">
@@ -251,7 +272,7 @@ export default async function CaseStudiesPage() {
               </p>
               <Reveal>
                 <FlowDiagram
-                  color="pink"
+                  color="violet"
                   steps={[
                     { label: "swap UI" },
                     { label: "wallet signs", note: "quote frozen" },
@@ -284,7 +305,7 @@ export default async function CaseStudiesPage() {
           </section>
 
           {/* ---- Project 3 ---- */}
-          <section className="flex flex-col gap-5">
+          <section id="p3" className="flex scroll-mt-24 flex-col gap-5">
             <Reveal className="flex flex-col gap-2">
               <span className="w-fit rounded-full border border-neon-emerald/40 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-neon-emerald">
                 03 · Sepolia testnet · Foundry
@@ -388,6 +409,34 @@ export default async function CaseStudiesPage() {
               </Reveal>
             </div>
           </section>
+        </div>
+
+        <div className="mt-14 flex flex-col items-center gap-4 rounded-xl border border-edge bg-surface px-6 py-8 text-center">
+          <h2 className="text-lg font-semibold tracking-tight">
+            Read enough? Go use them
+          </h2>
+          <div className="flex flex-wrap justify-center gap-3">
+            <Link
+              href="/dashboard"
+              className="rounded-xl bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+            >
+              Open the dashboard
+            </Link>
+            <Link
+              href="/stake"
+              className="rounded-xl border border-edge px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-accent/50"
+            >
+              Stake some BWC
+            </Link>
+            <a
+              href="https://github.com/philbochi/defi"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-xl border border-edge px-5 py-2.5 text-sm font-semibold text-ink-2 transition-colors hover:text-ink"
+            >
+              GitHub
+            </a>
+          </div>
         </div>
       </main>
       <SiteFooter />

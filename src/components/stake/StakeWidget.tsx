@@ -21,6 +21,7 @@ import {
   stakingVaultAbi,
   stakeDeployed,
 } from "@/lib/stake/constants";
+import { Medallion } from "@/components/landing/glyphs";
 
 const DECIMALS = 18;
 const AMOUNT_PATTERN = /^\d*\.?\d{0,18}$/;
@@ -267,7 +268,10 @@ export default function StakeWidget() {
   return (
     <div className="mx-auto flex w-full max-w-2xl flex-col gap-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-semibold tracking-tight">Stake</h1>
+        <div className="flex items-center gap-3">
+          <Medallion glyph="p3" color="emerald" />
+          <h1 className="text-xl font-semibold tracking-tight">Stake</h1>
+        </div>
         <ConnectButton
           accountStatus="address"
           chainStatus="icon"

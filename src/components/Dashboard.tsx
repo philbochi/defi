@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { isAddress } from "viem";
 import type { Portfolio } from "@/lib/types";
 import AddressForm from "./AddressForm";
+import { Medallion } from "./landing/glyphs";
 import SummaryCard from "./SummaryCard";
 import AllocationChart from "./AllocationChart";
 import HoldingsTable from "./HoldingsTable";
@@ -67,9 +68,12 @@ export default function Dashboard() {
   return (
     <div className="flex flex-col gap-6">
       <section className="flex flex-col gap-2">
-        <h1 className="text-2xl font-semibold tracking-tight">
-          On-Chain Portfolio Dashboard
-        </h1>
+        <div className="flex items-center gap-3">
+          <Medallion glyph="p1" color="cyan" />
+          <h1 className="text-2xl font-semibold tracking-tight">
+            On-Chain Portfolio Dashboard
+          </h1>
+        </div>
         <p className="max-w-2xl text-sm text-ink-2">
           Paste any Ethereum address to see its token balances, USD values,
           and allocation — live from mainnet. Read-only: no wallet connection,
