@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function SiteFooter() {
   return (
     <footer className="border-t border-edge">
@@ -12,7 +14,13 @@ export default function SiteFooter() {
           >
             Phil Bochi
           </a>{" "}
-          — Next.js · Alchemy · CoinGecko · Uniswap · Recharts
+          — Next.js · Alchemy · CoinGecko · Uniswap · Recharts ·{" "}
+          <Link
+            href="/case-studies"
+            className="text-ink-2 transition-colors hover:text-ink"
+          >
+            project deep-dives
+          </Link>
         </span>
         <span>Balances and prices are informational, not financial advice.</span>
       </div>
