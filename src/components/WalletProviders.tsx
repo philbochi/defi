@@ -12,7 +12,7 @@ import { sepolia } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 /**
- * Wallet stack for the swap page only — the dashboard route stays free of
+ * Wallet stack for wallet-bearing pages only — the dashboard route stays free of
  * wallet JS. The Reown project ID is a publishable client identifier.
  *
  * getDefaultConfig throws synchronously on an empty projectId, which would
@@ -33,7 +33,7 @@ const config = getDefaultConfig({
   ssr: true,
 });
 
-export default function SwapProviders({
+export default function WalletProviders({
   children,
 }: {
   children: React.ReactNode;

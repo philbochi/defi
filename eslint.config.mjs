@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Foundry workspace (Solidity + vendored libs) — not part of the web app.
+    "contracts/**",
   ]),
 ]);
 

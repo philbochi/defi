@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function SiteHeader({
   active,
 }: {
-  active: "dashboard" | "swap";
+  active: "dashboard" | "swap" | "stake";
 }) {
   const tab = (isActive: boolean) =>
     isActive
@@ -21,9 +21,9 @@ export default function SiteHeader({
             defi.philbochi.com
           </Link>
           <span className="hidden text-xs text-ink-3 sm:inline">
-            {active === "swap"
-              ? "Sepolia testnet · swap"
-              : "Ethereum mainnet · read-only"}
+            {active === "dashboard"
+              ? "Ethereum mainnet · read-only"
+              : `Sepolia testnet · ${active}`}
           </span>
         </div>
         <nav className="flex items-center gap-2 text-xs">
@@ -33,12 +33,9 @@ export default function SiteHeader({
           <Link href="/swap" className={tab(active === "swap")}>
             Swap · testnet
           </Link>
-          <span
-            className="hidden rounded-full px-3 py-1 text-ink-3 sm:inline"
-            title="Project 3 — coming soon"
-          >
-            Stake · soon
-          </span>
+          <Link href="/stake" className={tab(active === "stake")}>
+            Stake · testnet
+          </Link>
           <a
             href="https://github.com/philbochi/defi"
             target="_blank"
