@@ -15,21 +15,28 @@ const globalScope = globalThis as unknown as {
 };
 const hits = (globalScope.__rateLimitHits ??= new Map<string, number[]>());
 
-export function isRateLimited(ip: string): boolean {
+/**
+ * `key` should namespace the caller, e.g. "portfolio:1.2.3.4" — routes get
+ * separate budgets so a burst on one can't starve another.
+ */
+export function isRateLimited(
+  key: string,
+  maxPerWindow = MAX_REQUESTS_PER_WINDOW,
+): boolean {
   const now = Date.now();
-  const recent = (hits.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
+  const recent = (hits.get(key) ?? []).filter((t) => now - t < WINDOW_MS);
 
-  if (recent.length >= MAX_REQUESTS_PER_WINDOW) {
-    hits.set(ip, recent);
+  if (recent.length >= maxPerWindow) {
+    hits.set(key, recent);
     return true;
   }
 
   recent.push(now);
-  if (!hits.has(ip) && hits.size >= MAX_TRACKED_IPS) {
-    // Drop the oldest-seen IP to bound memory.
+  if (!hits.has(key) && hits.size >= MAX_TRACKED_IPS) {
+    // Drop the oldest-seen key to bound memory.
     const oldest = hits.keys().next().value;
     if (oldest !== undefined) hits.delete(oldest);
   }
-  hits.set(ip, recent);
+  hits.set(key, recent);
   return false;
 }

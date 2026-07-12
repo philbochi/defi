@@ -1,14 +1,20 @@
-# On-Chain Portfolio Dashboard
+# DeFi Portfolio — Dashboard & Token Swap
 
-Paste any Ethereum address and see its token balances, USD values, and
-allocation — live from mainnet.
+A three-part DeFi portfolio (dashboard → token swap → staking vault) built
+by [Phil Bochi](https://philbochi.com).
 
 **Live demo:** [defi.philbochi.com](https://defi.philbochi.com)
 
-This is Project 1 of a three-part DeFi portfolio (dashboard → token swap →
-staking vault) built by [Phil Bochi](https://philbochi.com).
+- **Project 1 — On-Chain Portfolio Dashboard** (mainnet, complete): paste
+  any Ethereum address and see its token balances, USD values, and
+  allocation — live from mainnet.
+- **Project 2 — Token Swap** (Sepolia testnet, in progress): connect a
+  wallet and swap through Uniswap v3's deployed contracts at
+  [/swap](https://defi.philbochi.com/swap).
+- **Project 3 — Staking Vault** (queued): custom ERC-20 + staking
+  contract built with Foundry, verified on Etherscan.
 
-## What it does
+## Project 1 — what it does
 
 - Read-only lookup of any mainnet address: ETH + ERC-20 balances with USD
   values, a total-value summary, an allocation donut, and a sortable
@@ -26,7 +32,8 @@ staking vault) built by [Phil Bochi](https://philbochi.com).
 | Framework | Next.js 16 (App Router, React 19, TypeScript) |
 | On-chain data | Alchemy JSON-RPC (`eth_getBalance`, `alchemy_getTokenBalances`, `alchemy_getTokenMetadata`) |
 | Pricing | CoinGecko (token price by contract address) |
-| Address handling | viem (`isAddress`, `getAddress`, `formatUnits`) |
+| Wallet layer | Wagmi + viem + RainbowKit (Sepolia, swap page) |
+| DEX integration | Uniswap v3 deployed contracts (SwapRouter02, QuoterV2) + `@uniswap/sdk-core` |
 | Charts | Recharts |
 | Styling | Tailwind CSS 4 |
 | Hosting | Vercel |
@@ -62,18 +69,40 @@ arbitrary ERC-20 contracts, so it's treated as untrusted input: obvious
 "visit site to claim" tokens are dropped server-side, and anything
 CoinGecko doesn't price is segregated from the portfolio math.
 
+## Project 2 — token swap (in progress)
+
+Wallet connect via RainbowKit/Wagmi on **Sepolia testnet**, swapping
+through Uniswap v3's deployed contracts — integrating the battle-tested
+protocol instead of reinventing an AMM. Every contract address in
+`src/lib/swap/constants.ts` was verified on-chain before being committed,
+and the WETH/UNI 0.3% pool quote path was tested against QuoterV2
+directly.
+
+Key decisions so far:
+
+- **Quotes are fetched server-side** (`/api/quote` → QuoterV2 via
+  Alchemy), keeping the same no-keys-in-the-browser rule as the
+  dashboard. The wallet talks to the chain only to sign and submit.
+- **Native ETH is handled, not just WETH.** ETH→token swaps use
+  SwapRouter02's payable path (the router wraps in-flight); ETH⇄WETH
+  wrap/unwrap are direct WETH9 `deposit`/`withdraw` calls shown as 1:1
+  "swaps" in the UI.
+- **Slippage is explicit**: presets set `amountOutMinimum` on-chain, and
+  the UI shows the minimum received before you sign.
+- ERC-20 inputs get the standard allowance check → approve → swap flow.
+
 ## Running locally
 
 ```bash
 npm install
-cp .env.example .env.local   # add your Alchemy + CoinGecko keys
+cp .env.example .env.local   # add Alchemy + CoinGecko keys and a Reown project ID
 npm run dev
 ```
 
 ## Roadmap
 
-- **Project 2 — Token Swap:** wallet-connect (Wagmi/viem/RainbowKit) +
-  Uniswap SDK on Sepolia
+- **Project 2 — Token Swap:** finish UNI→ETH unwrap routing (multicall)
+  and mobile wallet deep-link testing
 - **Project 3 — Staking Vault:** custom ERC-20 + staking contract built
   with Foundry, verified on Etherscan
 - Possible dashboard follow-ups: ENS resolution, historical value chart,

@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
 
   const ip =
     req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
-  if (isRateLimited(ip)) {
+  if (isRateLimited(`portfolio:${ip}`)) {
     return NextResponse.json(
       { error: "Too many requests — try again in a minute." },
       { status: 429 },
