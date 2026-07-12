@@ -22,11 +22,12 @@ deep-dives"). Builders build against this; /qa --site audits against it.
 | Role | Decorative (chips/glows/lines) | Interactive (buttons/links) | Why |
 |---|---|---|---|
 | Mainnet / dashboard | cyan `#06b6d4` | `#0e7490` | liquid mainnet identity; 700-shade holds 4.5:1 with white labels |
-| Testnet / swap | **deep violet `#8b5cf6`** | `#6d28d9` | client direction: deep purples anchor the testnet identity; violet reads "premium/creative" and sits harmonically between cyan and emerald |
-| Vault / stake | emerald `#10b981` | `#047857` | value/yield association; completes an analogous cool sweep cyan→violet→emerald |
+| Testnet / swap | **deep violet `#8b5cf6`** | `#6d28d9` | client direction: deep purples anchor the testnet identity; violet reads "premium/creative" and bridges cyan and ember |
+| Vault / stake | ember (red-orange) `#f97316` | `#c2410c` | client direction (rev 3): heat/energy of live yield accrual; maximally hue-separated from cyan and violet (CVD-strongest trio so far). Success semantics (tx-confirmed banners) stay on the green `--positive` token — red-orange must never mean "success" in a financial UI |
 
-- Hero gradient and pipeline: cyan → violet → emerald (the three
-  ecosystems in build order). CVD-validated as a set (see below).
+- Hero gradient and pipeline: cyan → violet → ember (the three
+  ecosystems in build order). Contrast-validated as a set: ember 6.9:1
+  on page, white 5.2:1 on the `#c2410c` buttons.
 - Accent appears ≤3 times per viewport; everything else stays neutral.
 
 ## Type

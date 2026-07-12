@@ -16,7 +16,7 @@
   /* Landing-page ecosystem accents: mainnet / testnet / custom token */
   --neon-cyan: #06b6d4;
   --neon-violet: #8b5cf6;
-  --neon-emerald: #10b981;
+  --neon-ember: #f97316;
 }
 
 @theme inline {
@@ -32,7 +32,7 @@
   --color-negative: var(--negative);
   --color-neon-cyan: var(--neon-cyan);
   --color-neon-violet: var(--neon-violet);
-  --color-neon-emerald: var(--neon-emerald);
+  --color-neon-ember: var(--neon-ember);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }

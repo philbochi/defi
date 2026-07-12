@@ -1,7 +1,7 @@
 const ACCENT = {
   cyan: "text-neon-cyan border-neon-cyan/25",
   violet: "text-neon-violet border-neon-violet/25",
-  emerald: "text-neon-emerald border-neon-emerald/25",
+  ember: "text-neon-ember border-neon-ember/25",
 } as const;
 
 /** Row of fact tiles — every number on these is real and verifiable. */

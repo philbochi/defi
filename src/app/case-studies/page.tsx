@@ -138,7 +138,7 @@ export default async function CaseStudiesPage() {
             </a>
             <a
               href="#p3"
-              className="rounded-full border border-neon-emerald/40 px-3 py-1 font-mono text-[11px] text-neon-emerald transition-colors hover:bg-neon-emerald/10"
+              className="rounded-full border border-neon-ember/40 px-3 py-1 font-mono text-[11px] text-neon-ember transition-colors hover:bg-neon-ember/10"
             >
               03 · staking vault
             </a>
@@ -307,7 +307,7 @@ export default async function CaseStudiesPage() {
           {/* ---- Project 3 ---- */}
           <section id="p3" className="flex scroll-mt-24 flex-col gap-5">
             <Reveal className="flex flex-col gap-2">
-              <span className="w-fit rounded-full border border-neon-emerald/40 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-neon-emerald">
+              <span className="w-fit rounded-full border border-neon-ember/40 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-neon-ember">
                 03 · Sepolia testnet · Foundry
               </span>
               <h2 className="text-xl font-semibold tracking-tight">
@@ -321,7 +321,7 @@ export default async function CaseStudiesPage() {
                 extra={{
                   href: "https://sepolia.etherscan.io/address/0x7d76cfbd9355d4ecc1842bca4d163a02c518ce9d#code",
                   label: "verified contract",
-                  className: "text-neon-emerald",
+                  className: "text-neon-ember",
                 }}
               />
             </Reveal>
@@ -334,7 +334,7 @@ export default async function CaseStudiesPage() {
                   href="https://sepolia.etherscan.io/address/0x7d76cfbd9355d4ecc1842bca4d163a02c518ce9d#code"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-neon-emerald transition-colors hover:text-ink"
+                  className="text-neon-ember transition-colors hover:text-ink"
                 >
                   verified on Etherscan
                 </a>{" "}
@@ -349,7 +349,7 @@ export default async function CaseStudiesPage() {
               </p>
               <Reveal>
                 <FlowDiagram
-                  color="emerald"
+                  color="ember"
                   steps={[
                     { label: "faucet()", note: "100 BWC / day" },
                     { label: "stake()" },
@@ -378,7 +378,7 @@ export default async function CaseStudiesPage() {
               </p>
               <Reveal>
                 <StatTiles
-                  color="emerald"
+                  color="ember"
                   stats={[
                     { value: "22", label: "adversarial review agents, every claim independently verified" },
                     { value: "2", label: "real test gaps found by mutation testing — both fixed" },

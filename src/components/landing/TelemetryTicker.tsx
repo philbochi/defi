@@ -7,13 +7,13 @@ import { TELEMETRY_POOL } from "@/lib/landing/content";
 const MAX_LINES = 6;
 
 const TAG_COLOR: Record<string, string> = {
-  EVENT: "text-neon-emerald",
+  EVENT: "text-neon-ember",
   QUOTE: "text-neon-violet",
   SWAP: "text-neon-violet",
   CACHE: "text-neon-cyan",
   RPC: "text-neon-cyan",
   PRICE: "text-neon-cyan",
-  VAULT: "text-neon-emerald",
+  VAULT: "text-neon-ember",
   GUARD: "text-neon-violet",
   LIMIT: "text-neon-cyan",
 };
@@ -75,10 +75,10 @@ export default function TelemetryTicker() {
         <span className="flex items-center gap-2 font-mono text-[11px] text-ink-2">
           <span className="relative flex h-2 w-2">
             {streaming && (
-              <span className="absolute h-full w-full animate-ping rounded-full bg-neon-emerald/60" />
+              <span className="absolute h-full w-full animate-ping rounded-full bg-neon-ember/60" />
             )}
             <span
-              className={`relative h-2 w-2 rounded-full ${streaming ? "bg-neon-emerald" : "bg-ink-3"}`}
+              className={`relative h-2 w-2 rounded-full ${streaming ? "bg-neon-ember" : "bg-ink-3"}`}
             />
           </span>
           ecosystem telemetry

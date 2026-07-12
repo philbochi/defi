@@ -29,8 +29,8 @@ const MEDALLION_STYLE = {
   cyan: "border-neon-cyan/60 text-neon-cyan shadow-[0_0_22px_rgba(6,182,212,0.3)]",
   violet:
     "border-neon-violet/60 text-neon-violet shadow-[0_0_22px_rgba(139,92,246,0.3)]",
-  emerald:
-    "border-neon-emerald/60 text-neon-emerald shadow-[0_0_22px_rgba(16,185,129,0.3)]",
+  ember:
+    "border-neon-ember/60 text-neon-ember shadow-[0_0_22px_rgba(249,115,22,0.3)]",
 } as const;
 
 /** Small glowing node medallion used as each app page's visual anchor. */

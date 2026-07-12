@@ -14,11 +14,11 @@ const NODE_STYLE = {
     text: "text-neon-violet",
     dot: "bg-neon-violet",
   },
-  emerald: {
-    ring: "border-neon-emerald/60",
-    glow: "shadow-[0_0_28px_rgba(16,185,129,0.35)]",
-    text: "text-neon-emerald",
-    dot: "bg-neon-emerald",
+  ember: {
+    ring: "border-neon-ember/60",
+    glow: "shadow-[0_0_28px_rgba(249,115,22,0.35)]",
+    text: "text-neon-ember",
+    dot: "bg-neon-ember",
   },
 } as const;
 
@@ -50,7 +50,7 @@ export default function Pipeline() {
           <linearGradient id="pipe" x1="0" y1="0" x2="900" y2="0" gradientUnits="userSpaceOnUse">
             <stop offset="0%" stopColor="#06b6d4" />
             <stop offset="50%" stopColor="#8b5cf6" />
-            <stop offset="100%" stopColor="#10b981" />
+            <stop offset="100%" stopColor="#f97316" />
           </linearGradient>
           <filter id="pipeGlow" x="-20%" y="-300%" width="140%" height="700%">
             <feDropShadow dx="0" dy="0" stdDeviation="4" floodColor="#8b5cf6" floodOpacity="0.45" />
@@ -69,7 +69,7 @@ export default function Pipeline() {
 
         {/* one pulse per ecosystem — a gradient fill can't follow
             animateMotion's transform, so each particle owns a color */}
-        {["#06b6d4", "#8b5cf6", "#10b981"].map((fill, i) => (
+        {["#06b6d4", "#8b5cf6", "#f97316"].map((fill, i) => (
           <circle key={fill} r="3.5" fill={fill} opacity="0">
             <animateMotion
               dur="4.5s"

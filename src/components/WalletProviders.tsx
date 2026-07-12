@@ -38,7 +38,7 @@ export default function WalletProviders({
   accentColor = "#3987e5",
 }: {
   children: React.ReactNode;
-  /** Per-page ecosystem accent (swap: violet, stake: emerald). */
+  /** Per-page ecosystem accent (swap: violet, stake: ember). */
   accentColor?: string;
 }) {
   const [queryClient] = useState(() => new QueryClient());

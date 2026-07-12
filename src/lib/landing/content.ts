@@ -11,7 +11,7 @@ export type ProjectMeta = {
   index: string;
   title: string;
   chain: string;
-  color: "cyan" | "violet" | "emerald";
+  color: "cyan" | "violet" | "ember";
   tagline: string;
   /** Two-line engineering decision for the pipeline tooltip. */
   decision: string;
@@ -49,7 +49,7 @@ export const PROJECTS: ProjectMeta[] = [
     index: "03",
     title: "Staking Vault",
     chain: "Sepolia · Foundry",
-    color: "emerald",
+    color: "ember",
     tagline: "Custom ERC-20 + vault, verified on Etherscan, public faucet.",
     decision:
       "Rewards minted on claim, never from principal — the demo-honest choice, with the Synthetix-style alternative documented in NatSpec.",
@@ -118,7 +118,7 @@ export type Tradeoff = { title: string; why: string };
 export const MATRIX: {
   id: string;
   label: string;
-  color: "cyan" | "violet" | "emerald";
+  color: "cyan" | "violet" | "ember";
   chosen: Tradeoff[];
   rejected: Tradeoff[];
   chosenSnippet: keyof typeof SNIPPETS;
@@ -197,7 +197,7 @@ export const MATRIX: {
   {
     id: "p3",
     label: "03 · vault",
-    color: "emerald",
+    color: "ember",
     chosen: [
       {
         title: "Rewards minted on claim",

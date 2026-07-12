@@ -269,7 +269,7 @@ export default function StakeWidget() {
     <div className="mx-auto flex w-full max-w-2xl flex-col gap-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <Medallion glyph="p3" color="emerald" />
+          <Medallion glyph="p3" color="ember" />
           <h1 className="text-xl font-semibold tracking-tight">Stake</h1>
         </div>
         <ConnectButton
@@ -420,7 +420,7 @@ export default function StakeWidget() {
             <div className="flex flex-col">
               <span className="text-sm font-medium">
                 Rewards:{" "}
-                <span className="tnum text-positive">{fmt(pending, 8)} BWC</span>
+                <span className="tnum text-neon-ember">{fmt(pending, 8)} BWC</span>
               </span>
               <span className="text-xs text-ink-3">
                 Accruing live at 10% APR — minted on claim, never taken from
@@ -522,7 +522,7 @@ function Stat({
         {label}
       </span>
       <span
-        className={`tnum truncate text-sm font-semibold ${highlight ? "text-positive" : "text-ink"}`}
+        className={`tnum truncate text-sm font-semibold ${highlight ? "text-neon-ember" : "text-ink"}`}
       >
         {value}
       </span>

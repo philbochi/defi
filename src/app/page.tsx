@@ -30,10 +30,10 @@ const SECTION_STYLE = {
     chip: "border-neon-violet/40 text-neon-violet",
     glow: "shadow-[0_0_40px_rgba(139,92,246,0.08)]",
   },
-  emerald: {
-    border: "border-neon-emerald/25",
-    chip: "border-neon-emerald/40 text-neon-emerald",
-    glow: "shadow-[0_0_40px_rgba(16,185,129,0.08)]",
+  ember: {
+    border: "border-neon-ember/25",
+    chip: "border-neon-ember/40 text-neon-ember",
+    glow: "shadow-[0_0_40px_rgba(249,115,22,0.08)]",
   },
 } as const;
 
@@ -144,7 +144,7 @@ export default async function Home() {
               </span>
               <h1 className="max-w-3xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
                 Three projects.{" "}
-                <span className="bg-linear-to-r from-neon-cyan via-neon-violet to-neon-emerald bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-neon-cyan via-neon-violet to-neon-ember bg-clip-text text-transparent">
                   One on-chain pipeline.
                 </span>
               </h1>
@@ -239,7 +239,7 @@ export default async function Home() {
                           href="https://sepolia.etherscan.io/address/0x7d76cfbd9355d4ecc1842bca4d163a02c518ce9d#code"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-neon-emerald transition-colors hover:text-ink"
+                          className="text-neon-ember transition-colors hover:text-ink"
                         >
                           verified contract ↗
                         </a>

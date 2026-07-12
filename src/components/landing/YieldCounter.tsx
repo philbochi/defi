@@ -32,7 +32,7 @@ export default function YieldCounter() {
       <span className="font-mono text-[10px] uppercase tracking-wider text-ink-2">
         100 BWC staked right now would be accruing
       </span>
-      <span className="tnum font-mono text-2xl font-semibold text-neon-emerald">
+      <span className="tnum font-mono text-2xl font-semibold text-neon-ember">
         {reduced ? (
           <>
             +0.000000317

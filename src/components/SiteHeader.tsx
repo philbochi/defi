@@ -31,6 +31,9 @@ export default function SiteHeader({
           </span>
         </div>
         <nav className="flex flex-wrap items-center gap-1 text-xs sm:gap-2">
+          <Link href="/" className={tab(active === "home")}>
+            Home
+          </Link>
           <Link href="/dashboard" className={tab(active === "dashboard")}>
             Dashboard
           </Link>

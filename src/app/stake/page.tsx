@@ -30,17 +30,17 @@ export default function StakePage() {
   return (
     <div
       className="relative flex min-h-screen flex-col"
-      style={{ ["--accent" as string]: "#047857" }}
+      style={{ ["--accent" as string]: "#c2410c" }}
     >
-      <AmbientBackdrop color="emerald" />
+      <AmbientBackdrop color="ember" />
       <SiteHeader active="stake" />
       <main className="relative mx-auto w-full max-w-5xl flex-1 px-4 py-8 sm:px-6">
         <div className="mx-auto mb-4 flex w-full max-w-2xl items-center gap-3">
-          <span className="rounded-full border border-neon-emerald/40 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-neon-emerald">
+          <span className="rounded-full border border-neon-ember/40 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-neon-ember">
             03 · Sepolia testnet · verified contracts
           </span>
         </div>
-        <WalletProviders accentColor="#047857">
+        <WalletProviders accentColor="#c2410c">
           <StakeWidget />
         </WalletProviders>
 
@@ -51,7 +51,7 @@ export default function StakePage() {
               The whole lifecycle
             </h2>
             <FlowDiagram
-              color="emerald"
+              color="ember"
               steps={[
                 { label: "faucet()", note: "100 BWC / day, free" },
                 { label: "stake()", note: "approve, then deposit" },
@@ -64,7 +64,7 @@ export default function StakePage() {
 
           <Reveal>
             <StatTiles
-              color="emerald"
+              color="ember"
               stats={[
                 { value: "10%", label: "fixed APR, computed per second by the contract formula" },
                 { value: "35", label: "Foundry tests — fuzz at 512 runs, mutation-tested" },
@@ -76,7 +76,7 @@ export default function StakePage() {
           <Reveal>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div className="flex flex-col gap-2.5 rounded-xl border border-edge bg-surface p-5">
-                <h3 className="font-mono text-xs uppercase tracking-wider text-neon-emerald">
+                <h3 className="font-mono text-xs uppercase tracking-wider text-neon-ember">
                   try it in three steps
                 </h3>
                 <ol className="flex list-inside list-decimal flex-col gap-2 text-sm text-ink-2">
@@ -98,7 +98,7 @@ export default function StakePage() {
                 </ol>
               </div>
               <div className="flex flex-col gap-2.5 rounded-xl border border-edge bg-surface p-5">
-                <h3 className="font-mono text-xs uppercase tracking-wider text-neon-emerald">
+                <h3 className="font-mono text-xs uppercase tracking-wider text-neon-ember">
                   the contracts — verified source
                 </h3>
                 <ul className="flex flex-col gap-2 text-sm">

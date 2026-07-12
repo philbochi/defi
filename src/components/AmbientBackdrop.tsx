@@ -1,7 +1,7 @@
 const BLOB = {
   cyan: "rgba(6,182,212,0.10)",
   violet: "rgba(139,92,246,0.10)",
-  emerald: "rgba(16,185,129,0.10)",
+  ember: "rgba(249,115,22,0.10)",
   slate: "rgba(148,163,184,0.07)",
 } as const;
 
