@@ -57,6 +57,14 @@ export default function SiteHeader({
           >
             GitHub
           </a>
+          <a
+            href="https://philbochi.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-full px-3 py-1 text-ink-2 transition-colors hover:text-ink"
+          >
+            Phil Bochi
+          </a>
         </nav>
       </div>
     </header>
