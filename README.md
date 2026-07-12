@@ -11,8 +11,12 @@ by [Phil Bochi](https://philbochi.com).
 - **Project 2 — Token Swap** (Sepolia testnet, in progress): connect a
   wallet and swap through Uniswap v3's deployed contracts at
   [/swap](https://defi.philbochi.com/swap).
-- **Project 3 — Staking Vault** (queued): custom ERC-20 + staking
-  contract built with Foundry, verified on Etherscan.
+- **Project 3 — Staking Vault** (Sepolia testnet, live): stake the custom
+  Bochi Credits ERC-20 and watch 10% APR accrue live at
+  [/stake](https://defi.philbochi.com/stake). Built with Foundry, both
+  contracts [verified on Etherscan](https://sepolia.etherscan.io/address/0x7d76cfbd9355d4ecc1842bca4d163a02c518ce9d#code),
+  with a public faucet so anyone can try it — see
+  [contracts/](contracts/README.md).
 
 ## Project 1 — what it does
 
@@ -102,8 +106,6 @@ npm run dev
 
 ## Roadmap
 
-- **Project 2 — Token Swap:** mobile wallet deep-link testing
-- **Project 3 — Staking Vault:** custom ERC-20 + staking contract built
-  with Foundry, verified on Etherscan
+- Mobile wallet deep-link testing across the swap and stake flows
 - Possible dashboard follow-ups: ENS resolution, historical value chart,
   multi-chain support

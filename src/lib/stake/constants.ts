@@ -6,11 +6,14 @@
 
 import { parseAbi } from "viem";
 
-/** Set to the deployed addresses; zero means "not deployed yet". */
-export const STAKE_ADDRESSES = {
-  BOCHI_CREDITS: "0x0000000000000000000000000000000000000000",
-  STAKING_VAULT: "0x0000000000000000000000000000000000000000",
-} as const;
+/** Deployed 2026-07-12, verified on sepolia.etherscan.io. */
+export const STAKE_ADDRESSES: {
+  BOCHI_CREDITS: `0x${string}`;
+  STAKING_VAULT: `0x${string}`;
+} = {
+  BOCHI_CREDITS: "0x4b572ddcb6a0aa626bd36c78cf2fb827feab4aa8",
+  STAKING_VAULT: "0x7d76cfbd9355d4ecc1842bca4d163a02c518ce9d",
+};
 
 export const APR_BPS = 1_000n;
 export const BPS_DENOMINATOR = 10_000n;

@@ -26,8 +26,14 @@ portfolio: a demo ERC-20 and a staking vault, built with Foundry.
 
 ## Deployed addresses (Sepolia)
 
-_Pending deployment — will be listed here with Etherscan links once
-verified._
+Both contracts are verified — source is readable on Etherscan:
+
+| Contract | Address |
+|---|---|
+| BochiCredits (BWC) | [`0x4b572ddcb6a0aa626bd36c78cf2fb827feab4aa8`](https://sepolia.etherscan.io/address/0x4b572ddcb6a0aa626bd36c78cf2fb827feab4aa8#code) |
+| StakingVault | [`0x7d76cfbd9355d4ecc1842bca4d163a02c518ce9d`](https://sepolia.etherscan.io/address/0x7d76cfbd9355d4ecc1842bca4d163a02c518ce9d#code) |
+
+Live UI: [defi.philbochi.com/stake](https://defi.philbochi.com/stake)
 
 ## Develop
 
