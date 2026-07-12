@@ -1,0 +1,6 @@
+# Foundry build artifacts
+cache/
+out/
+
+# Broadcast logs can contain deployer metadata; commit deliberately if wanted
+broadcast/
