@@ -4,7 +4,10 @@ import type { Portfolio } from "@/lib/types";
 import { formatUsd, shortenAddress } from "@/lib/format";
 
 export default function SummaryCard({ portfolio }: { portfolio: Portfolio }) {
-  const eth = portfolio.priced.find((h) => h.contract === null);
+  // The ETH balance is price-independent, so look in both buckets.
+  const eth = [...portfolio.priced, ...portfolio.unpriced].find(
+    (h) => h.contract === null,
+  );
   const updated = new Date(portfolio.updatedAt);
 
   return (
@@ -25,6 +28,12 @@ export default function SummaryCard({ portfolio }: { portfolio: Portfolio }) {
         >
           {shortenAddress(portfolio.address)}
         </span>
+        {portfolio.truncated && (
+          <span className="mt-2 text-xs text-ink-2">
+            Large wallet — only the first tokens found on-chain were scanned,
+            so the total may be incomplete.
+          </span>
+        )}
       </div>
 
       <dl className="grid grid-cols-3 gap-3 text-sm">

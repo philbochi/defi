@@ -24,14 +24,16 @@ const SERIES = [
 const OTHER_COLOR = "#6e7480";
 const MAX_SLICES = 8;
 
-type Slice = { name: string; value: number; color: string };
+type Slice = { key: string; name: string; value: number; color: string };
 
 function toSlices(holdings: TokenHolding[]): Slice[] {
   const priced = holdings.filter((h) => (h.usdValue ?? 0) > 0);
   const top = priced.slice(0, MAX_SLICES);
   const rest = priced.slice(MAX_SLICES);
 
+  // Keyed by contract, not symbol — ERC-20 symbols aren't unique.
   const slices: Slice[] = top.map((h, i) => ({
+    key: h.contract ?? "eth",
     name: h.symbol,
     value: h.usdValue as number,
     color: SERIES[i],
@@ -40,6 +42,7 @@ function toSlices(holdings: TokenHolding[]): Slice[] {
   const otherTotal = rest.reduce((sum, h) => sum + (h.usdValue as number), 0);
   if (otherTotal > 0) {
     slices.push({
+      key: "other",
       name: `Other (${rest.length})`,
       value: otherTotal,
       color: OTHER_COLOR,
@@ -85,7 +88,7 @@ export default function AllocationChart({
               isAnimationActive={false}
             >
               {slices.map((slice) => (
-                <Cell key={slice.name} fill={slice.color} />
+                <Cell key={slice.key} fill={slice.color} />
               ))}
             </Pie>
             <Tooltip
@@ -118,7 +121,7 @@ export default function AllocationChart({
       <ul className="flex min-w-0 flex-1 flex-col gap-1.5 text-sm">
         {slices.map((slice) => (
           <li
-            key={slice.name}
+            key={slice.key}
             className="flex items-center justify-between gap-3"
           >
             <span className="flex min-w-0 items-center gap-2">

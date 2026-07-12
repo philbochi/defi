@@ -10,6 +10,8 @@ import { cache, TTL } from "./cache";
 
 const METADATA_BATCH_SIZE = 50;
 const MAX_BALANCE_PAGES = 3;
+/** Bound every upstream call so one hung socket can't pin a serverless instance. */
+export const UPSTREAM_TIMEOUT_MS = 10_000;
 
 export type RawTokenBalance = {
   contractAddress: string;
@@ -52,6 +54,7 @@ async function rpc<T>(method: string, params: unknown[]): Promise<T> {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ jsonrpc: "2.0", id: 1, method, params }),
     cache: "no-store",
+    signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
   });
   if (!res.ok) {
     throw new UpstreamError("alchemy", `HTTP ${res.status} for ${method}`);
@@ -75,6 +78,7 @@ async function rpcBatch<T>(
       calls.map((c, i) => ({ jsonrpc: "2.0", id: i, ...c })),
     ),
     cache: "no-store",
+    signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
   });
   if (!res.ok) {
     throw new UpstreamError("alchemy", `HTTP ${res.status} for batch`);
@@ -96,10 +100,14 @@ export async function getEthBalance(address: string): Promise<bigint> {
   return BigInt(hex);
 }
 
-/** All non-zero ERC-20 balances for an address (paginated, page cap applied). */
+/**
+ * All non-zero ERC-20 balances for an address (paginated). `truncated` is
+ * true when the page cap left further tokens unscanned — callers surface
+ * that instead of presenting a partial scan as complete.
+ */
 export async function getTokenBalances(
   address: string,
-): Promise<RawTokenBalance[]> {
+): Promise<{ balances: RawTokenBalance[]; truncated: boolean }> {
   const balances: RawTokenBalance[] = [];
   let pageKey: string | undefined;
 
@@ -117,7 +125,7 @@ export async function getTokenBalances(
     if (!pageKey) break;
   }
 
-  return balances.filter((b) => {
+  const nonZero = balances.filter((b) => {
     if (!b.tokenBalance || b.tokenBalance === "0x") return false;
     try {
       return BigInt(b.tokenBalance) > 0n;
@@ -125,6 +133,8 @@ export async function getTokenBalances(
       return false;
     }
   });
+
+  return { balances: nonZero, truncated: pageKey !== undefined };
 }
 
 /** Metadata for many contracts, 24h-cached per contract, misses batched. */

@@ -42,10 +42,14 @@ export default function Dashboard() {
         `/api/portfolio?address=${encodeURIComponent(address)}`,
         { signal: controller.signal },
       );
-      const body = (await res.json()) as Portfolio & { error?: string };
       if (!res.ok) {
-        throw new Error(body.error ?? `Lookup failed (HTTP ${res.status}).`);
+        // Error bodies can be non-JSON (platform 504s, CDN error pages).
+        const body = (await res.json().catch(() => null)) as {
+          error?: string;
+        } | null;
+        throw new Error(body?.error ?? `Lookup failed (HTTP ${res.status}).`);
       }
+      const body = (await res.json()) as Portfolio;
       setPortfolio(body);
       setStatus("loaded");
       window.history.replaceState(

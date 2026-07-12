@@ -21,8 +21,13 @@ export function formatUsd(value: number): string {
 /** Token unit prices span many magnitudes; keep 4 significant digits below $1. */
 export function formatPrice(value: number): string {
   if (value >= 1) return usdCents.format(value);
+  if (value === 0) return usdCents.format(0);
   if (value < 0.000001) return "<$0.000001";
-  return `$${value.toPrecision(4).replace(/\.?0+$/, "")}`;
+  const rounded = value.toPrecision(4);
+  // 0.99995+ rounds up to par — show it as dollars-and-cents.
+  if (Number(rounded) >= 1) return usdCents.format(Number(rounded));
+  // Strip trailing zeros, but never below cent precision ($0.50, not $0.5).
+  return `$${rounded.replace(/(\.\d{2}\d*?)0+$/, "$1")}`;
 }
 
 export function formatBalance(balance: string): string {

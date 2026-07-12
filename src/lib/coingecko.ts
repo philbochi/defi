@@ -7,7 +7,7 @@
  */
 
 import { cache, TTL } from "./cache";
-import { UpstreamError } from "./alchemy";
+import { UpstreamError, UPSTREAM_TIMEOUT_MS } from "./alchemy";
 
 const BASE_URL = "https://api.coingecko.com/api/v3";
 const PRICE_BATCH_SIZE = 100;
@@ -22,6 +22,7 @@ async function fetchJson<T>(path: string): Promise<T> {
   const res = await fetch(`${BASE_URL}${path}`, {
     headers: headers(),
     cache: "no-store",
+    signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
   });
   if (!res.ok) {
     throw new UpstreamError("coingecko", `HTTP ${res.status} for ${path}`);
@@ -30,12 +31,15 @@ async function fetchJson<T>(path: string): Promise<T> {
 }
 
 export async function getEthPriceUsd(): Promise<number | null> {
-  return cache.getOrSet("price:eth", TTL.PRICES, async () => {
-    const data = await fetchJson<{ ethereum?: { usd?: number } }>(
-      "/simple/price?ids=ethereum&vs_currencies=usd",
-    );
-    return data.ethereum?.usd ?? null;
-  });
+  const cached = cache.get<number>("price:eth");
+  if (cached !== undefined) return cached;
+  const data = await fetchJson<{ ethereum?: { usd?: number } }>(
+    "/simple/price?ids=ethereum&vs_currencies=usd",
+  );
+  const usd = data.ethereum?.usd ?? null;
+  // Don't cache a missing price — a transient blip shouldn't stick for 60s.
+  if (usd !== null) cache.set("price:eth", usd, TTL.PRICES);
+  return usd;
 }
 
 /**

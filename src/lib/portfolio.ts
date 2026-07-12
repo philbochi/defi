@@ -40,12 +40,14 @@ export async function getPortfolio(address: string): Promise<Portfolio> {
 }
 
 async function buildPortfolio(address: string): Promise<Portfolio> {
-  const [ethBalance, rawBalances] = await Promise.all([
+  const [ethBalance, tokenScan] = await Promise.all([
     getEthBalance(address),
     getTokenBalances(address),
   ]);
 
-  const balances = rawBalances.slice(0, MAX_TOKENS).map((b) => ({
+  const truncated =
+    tokenScan.truncated || tokenScan.balances.length > MAX_TOKENS;
+  const balances = tokenScan.balances.slice(0, MAX_TOKENS).map((b) => ({
     contract: b.contractAddress.toLowerCase(),
     raw: BigInt(b.tokenBalance as string),
   }));
@@ -116,6 +118,7 @@ async function buildPortfolio(address: string): Promise<Portfolio> {
     totalUsd: priced.reduce((sum, h) => sum + (h.usdValue as number), 0),
     priced,
     unpriced,
+    truncated,
     updatedAt: new Date().toISOString(),
   };
 }

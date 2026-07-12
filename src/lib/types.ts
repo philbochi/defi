@@ -22,6 +22,11 @@ export type Portfolio = {
   priced: TokenHolding[];
   /** Holdings with metadata but no price feed (often spam/dust). */
   unpriced: TokenHolding[];
+  /**
+   * True when the wallet held more tokens than the free-tier scan cap, so
+   * totals are computed from a partial holding set.
+   */
+  truncated: boolean;
   /** ISO timestamp of when this snapshot was assembled. */
   updatedAt: string;
 };
