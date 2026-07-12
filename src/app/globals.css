@@ -1,26 +1,42 @@
 @import "tailwindcss";
 
+/* Dark fintech theme — committed dark design (Zapper/DeBank reference),
+   not a light/dark toggle. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --page: #0b0d12;
+  --surface: #12151c;
+  --surface-2: #191d26;
+  --edge: rgba(255, 255, 255, 0.08);
+  --ink: #f2f4f8;
+  --ink-2: #9aa1ad;
+  --ink-3: #757c89;
+  --accent: #3987e5;
+  --positive: #0ca30c;
+  --negative: #e66767;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-page: var(--page);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-edge: var(--edge);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-accent: var(--accent);
+  --color-positive: var(--positive);
+  --color-negative: var(--negative);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+body {
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Columns of figures align vertically. */
+.tnum {
+  font-variant-numeric: tabular-nums;
 }
