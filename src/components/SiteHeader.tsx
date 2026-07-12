@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function SiteHeader({
   active,
 }: {
-  active: "dashboard" | "swap" | "stake" | "deep-dives";
+  active: "home" | "dashboard" | "swap" | "stake" | "deep-dives";
 }) {
   const tab = (isActive: boolean) =>
     isActive
@@ -12,7 +12,7 @@ export default function SiteHeader({
 
   return (
     <header className="border-b border-edge">
-      <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4 px-4 py-4 sm:px-6">
+      <div className="mx-auto flex w-full max-w-5xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-3 sm:px-6 sm:py-4">
         <div className="flex items-baseline gap-3">
           <Link
             href="/"
@@ -21,22 +21,24 @@ export default function SiteHeader({
             defi.philbochi.com
           </Link>
           <span className="hidden text-xs text-ink-3 sm:inline">
-            {active === "dashboard"
-              ? "Ethereum mainnet · read-only"
-              : active === "deep-dives"
-                ? "the engineering behind the projects"
-                : `Sepolia testnet · ${active}`}
+            {active === "home"
+              ? "Web3 engineering portfolio"
+              : active === "dashboard"
+                ? "Ethereum mainnet · read-only"
+                : active === "deep-dives"
+                  ? "the engineering behind the projects"
+                  : `Sepolia testnet · ${active}`}
           </span>
         </div>
-        <nav className="flex items-center gap-2 text-xs">
-          <Link href="/" className={tab(active === "dashboard")}>
+        <nav className="flex flex-wrap items-center gap-1 text-xs sm:gap-2">
+          <Link href="/dashboard" className={tab(active === "dashboard")}>
             Dashboard
           </Link>
           <Link href="/swap" className={tab(active === "swap")}>
-            Swap · testnet
+            Swap<span className="hidden md:inline"> · testnet</span>
           </Link>
           <Link href="/stake" className={tab(active === "stake")}>
-            Stake · testnet
+            Stake<span className="hidden md:inline"> · testnet</span>
           </Link>
           <Link
             href="/case-studies"

@@ -35,8 +35,11 @@ const config = getDefaultConfig({
 
 export default function WalletProviders({
   children,
+  accentColor = "#3987e5",
 }: {
   children: React.ReactNode;
+  /** Per-page ecosystem accent (swap: pink, stake: emerald). */
+  accentColor?: string;
 }) {
   const [queryClient] = useState(() => new QueryClient());
 
@@ -46,7 +49,7 @@ export default function WalletProviders({
         <RainbowKitProvider
           modalSize="compact"
           theme={darkTheme({
-            accentColor: "#3987e5",
+            accentColor,
             borderRadius: "medium",
           })}
         >

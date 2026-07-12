@@ -13,6 +13,10 @@
   --accent: #3987e5;
   --positive: #0ca30c;
   --negative: #e66767;
+  /* Landing-page ecosystem accents: mainnet / testnet / custom token */
+  --neon-cyan: #06b6d4;
+  --neon-pink: #ec4899;
+  --neon-emerald: #10b981;
 }
 
 @theme inline {
@@ -26,6 +30,9 @@
   --color-accent: var(--accent);
   --color-positive: var(--positive);
   --color-negative: var(--negative);
+  --color-neon-cyan: var(--neon-cyan);
+  --color-neon-pink: var(--neon-pink);
+  --color-neon-emerald: var(--neon-emerald);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -39,4 +46,16 @@ body {
 /* Columns of figures align vertically. */
 .tnum {
   font-variant-numeric: tabular-nums;
+}
+
+/* Shiki output on the landing page. */
+.landing-code pre {
+  margin: 0;
+  padding: 0.875rem 1rem;
+  background: var(--surface-2) !important;
+  font-family: var(--font-geist-mono), monospace;
+  white-space: pre;
+}
+.landing-code code {
+  font-family: inherit;
 }
