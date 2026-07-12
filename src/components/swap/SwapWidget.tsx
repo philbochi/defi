@@ -12,6 +12,7 @@ import {
 } from "wagmi";
 import { sepolia } from "wagmi/chains";
 import { ConnectButton, useConnectModal } from "@rainbow-me/rainbowkit";
+import { encodeFunctionData } from "viem";
 import {
   UNISWAP,
   POOL_FEE,
@@ -19,7 +20,12 @@ import {
   erc20For,
   type SwapSymbol,
 } from "@/lib/swap/constants";
-import { swapRouterAbi, erc20Abi, weth9Abi } from "@/lib/swap/abis";
+import {
+  swapRouterAbi,
+  erc20Abi,
+  weth9Abi,
+  ROUTER_ADDRESS_THIS,
+} from "@/lib/swap/abis";
 
 const DECIMALS = 18;
 const SLIPPAGE_PRESETS_BPS = [10, 50, 100] as const;
@@ -34,13 +40,15 @@ type QuoteResponse = {
   error?: string;
 };
 
-type Action = "wrap" | "unwrap" | "swap-eth-in" | "swap-erc20" | "unsupported";
+type Action = "wrap" | "unwrap" | "swap-eth-in" | "swap-erc20" | "swap-to-eth";
 
 function actionFor(from: SwapSymbol, to: SwapSymbol): Action {
   if (from === "ETH" && to === "WETH") return "wrap";
   if (from === "WETH" && to === "ETH") return "unwrap";
   if (from === "ETH") return "swap-eth-in";
-  if (to === "ETH") return "unsupported"; // needs unwrap multicall — next iteration
+  // ERC-20 → native ETH: swap to WETH held by the router, then unwrap —
+  // one transaction via the router's multicall.
+  if (to === "ETH") return "swap-to-eth";
   return "swap-erc20";
 }
 
@@ -104,18 +112,19 @@ export default function SwapWidget() {
       : ((erc20Balance.data as bigint | undefined) ?? null);
 
   // ----- allowance (ERC-20 inputs only) -----
+  const erc20Input = action === "swap-erc20" || action === "swap-to-eth";
   const allowance = useReadContract({
     address: fromErc20.address as `0x${string}`,
     abi: erc20Abi,
     functionName: "allowance",
     args: address ? [address, UNISWAP.SWAP_ROUTER_02 as `0x${string}`] : undefined,
     chainId: sepolia.id,
-    query: { enabled: isConnected && action === "swap-erc20" },
+    query: { enabled: isConnected && erc20Input },
   });
   const allowanceLoading =
-    action === "swap-erc20" && isConnected && allowance.data === undefined;
+    erc20Input && isConnected && allowance.data === undefined;
   const needsApproval =
-    action === "swap-erc20" &&
+    erc20Input &&
     amountIn !== null &&
     allowance.data !== undefined &&
     (allowance.data as bigint) < amountIn;
@@ -123,7 +132,15 @@ export default function SwapWidget() {
   // ----- quote (server-side; wrap/unwrap are always 1:1) -----
   const quoteKey = `${from}:${to}:${amountText}`;
   const needsQuote =
-    amountIn !== null && (action === "swap-eth-in" || action === "swap-erc20");
+    amountIn !== null &&
+    (action === "swap-eth-in" ||
+      action === "swap-erc20" ||
+      action === "swap-to-eth");
+
+  // Testnet prices drift too: re-quote every 15s while idle so a stale
+  // number can't sit on screen. (Interval effect lives below, after the
+  // pending-transaction state it pauses on.)
+  const [refreshTick, setRefreshTick] = useState(0);
 
   useEffect(() => {
     if (!needsQuote) return;
@@ -153,7 +170,7 @@ export default function SwapWidget() {
       clearTimeout(t);
       controller.abort();
     };
-  }, [quoteKey, needsQuote, from, to, amountText]);
+  }, [quoteKey, needsQuote, from, to, amountText, refreshTick]);
 
   const activeQuote = quoteState?.key === quoteKey ? quoteState : null;
   const quote = activeQuote?.data ?? null;
@@ -181,6 +198,15 @@ export default function SwapWidget() {
     { hash: `0x${string}`; kind: TxKind } | undefined
   >();
   const receipt = useWaitForTransactionReceipt({ hash: pendingTx?.hash });
+
+  // Re-quote on an interval; paused from the moment the wallet prompt
+  // opens (writing) through confirmation (pendingTx) so the displayed
+  // numbers stay frozen at what the user is signing against.
+  useEffect(() => {
+    if (!needsQuote || pendingTx !== undefined || writing) return;
+    const id = window.setInterval(() => setRefreshTick((t) => t + 1), 15_000);
+    return () => window.clearInterval(id);
+  }, [needsQuote, pendingTx, writing]);
 
   useEffect(() => {
     if (!pendingTx || (!receipt.isSuccess && !receipt.isError)) return;
@@ -269,6 +295,40 @@ export default function SwapWidget() {
       return;
     }
     if (minOut === null) return;
+    if (action === "swap-to-eth") {
+      // Swap leg pays WETH to the router itself (sentinel address(2)),
+      // then unwrapWETH9 forwards native ETH to the user — one signature.
+      const swapCall = encodeFunctionData({
+        abi: swapRouterAbi,
+        functionName: "exactInputSingle",
+        args: [
+          {
+            tokenIn: erc20For(from).address as `0x${string}`,
+            tokenOut: erc20For(to).address as `0x${string}`,
+            fee: POOL_FEE,
+            recipient: ROUTER_ADDRESS_THIS,
+            amountIn,
+            amountOutMinimum: minOut,
+            sqrtPriceLimitX96: 0n,
+          },
+        ],
+      });
+      const unwrapCall = encodeFunctionData({
+        abi: swapRouterAbi,
+        functionName: "unwrapWETH9",
+        args: [minOut, address],
+      });
+      void send("swap", () =>
+        writeContractAsync({
+          address: UNISWAP.SWAP_ROUTER_02 as `0x${string}`,
+          abi: swapRouterAbi,
+          functionName: "multicall",
+          args: [[swapCall, unwrapCall]],
+          chainId: sepolia.id,
+        }),
+      );
+      return;
+    }
     void send("swap", () =>
       writeContractAsync({
         address: UNISWAP.SWAP_ROUTER_02 as `0x${string}`,
@@ -305,8 +365,6 @@ export default function SwapWidget() {
       onClick: () => switchChain({ chainId: sepolia.id }),
       disabled: false,
     };
-  } else if (action === "unsupported") {
-    button = { label: "Route via WETH (swap to WETH, then unwrap)", disabled: true };
   } else if (amountIn === null) {
     button = { label: "Enter an amount", disabled: true };
   } else if (insufficient) {
@@ -320,11 +378,12 @@ export default function SwapWidget() {
   } else if (action !== "wrap" && action !== "unwrap" && amountOut === null) {
     button = { label: quoting ? "Fetching quote…" : "No quote", disabled: true };
   } else {
-    const labels: Record<Exclude<Action, "unsupported">, string> = {
+    const labels: Record<Action, string> = {
       wrap: "Wrap ETH",
       unwrap: "Unwrap WETH",
       "swap-eth-in": "Swap",
       "swap-erc20": "Swap",
+      "swap-to-eth": "Swap",
     };
     button = { label: labels[action], onClick: execute, disabled: false };
   }

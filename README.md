@@ -83,10 +83,11 @@ Key decisions so far:
 - **Quotes are fetched server-side** (`/api/quote` → QuoterV2 via
   Alchemy), keeping the same no-keys-in-the-browser rule as the
   dashboard. The wallet talks to the chain only to sign and submit.
-- **Native ETH is handled, not just WETH.** ETH→token swaps use
-  SwapRouter02's payable path (the router wraps in-flight); ETH⇄WETH
-  wrap/unwrap are direct WETH9 `deposit`/`withdraw` calls shown as 1:1
-  "swaps" in the UI.
+- **Native ETH is handled in both directions, not just WETH.** ETH→token
+  swaps use SwapRouter02's payable path (the router wraps in-flight);
+  token→ETH exits bundle the swap and `unwrapWETH9` into one transaction
+  via the router's `multicall`; ETH⇄WETH wrap/unwrap are direct WETH9
+  `deposit`/`withdraw` calls shown as 1:1 "swaps" in the UI.
 - **Slippage is explicit**: presets set `amountOutMinimum` on-chain, and
   the UI shows the minimum received before you sign.
 - ERC-20 inputs get the standard allowance check → approve → swap flow.
@@ -101,8 +102,7 @@ npm run dev
 
 ## Roadmap
 
-- **Project 2 — Token Swap:** finish UNI→ETH unwrap routing (multicall)
-  and mobile wallet deep-link testing
+- **Project 2 — Token Swap:** mobile wallet deep-link testing
 - **Project 3 — Staking Vault:** custom ERC-20 + staking contract built
   with Foundry, verified on Etherscan
 - Possible dashboard follow-ups: ENS resolution, historical value chart,
